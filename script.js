@@ -90,6 +90,41 @@ function GameController(
       return;
     }
     // This is where the check for a winner, loser, or tie and handle that logic, such as a win message.
+    const marker = getActivePlayer().marker;
+    const currentBoard = board.getBoard();
+
+    const winPossibilities = [
+      [[0, 0], [0, 1], [0, 2]],
+      [[1, 0], [1, 1], [1, 2]],
+      [[2, 0], [2, 1], [2, 2]],
+
+      [[0, 0], [1, 0], [2, 0]],
+      [[0, 1], [1, 1], [2, 1]],
+      [[0, 2], [1, 2], [2, 2]],
+
+      [[0, 0], [1, 1], [2, 2]],
+      [[0, 2], [1, 1], [2, 0]],
+    ];
+
+    for (let i = 0; i < winPossibilities.length; i++) {
+      const currentPossibility = winPossibilities[i];
+      let thisPossibilityMatches = true;
+
+      for (let j = 0; j < currentPossibility.length; j++) {
+        const coordinate = currentPossibility[j];
+        const boardValue = currentBoard[coordinate[0]][coordinate[1]].getValue();
+
+        if (boardValue !== marker) {
+          thisPossibilityMatches = false;
+          break;
+        }
+      }
+
+      if (thisPossibilityMatches) {
+        console.log(`${getActivePlayer().name} wins!`);
+        return;
+      }
+    }
 
     switchPlayerTurn();
     printNewRound();
