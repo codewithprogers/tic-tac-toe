@@ -68,6 +68,7 @@ function GameController(
   ];
 
   let activePlayer = players[0];
+  let gameIsOver = false;
 
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -80,16 +81,26 @@ function GameController(
   };
 
   const playRound = (row, column) => {
+    if (gameIsOver) {
+      console.log("This game has ended.");
+      return;
+    }
+
     console.log(
       `Placing ${getActivePlayer().name}'s marker into row ${row}, column ${column}.`,
     );
-    const moveWasSuccessful = board.placeMarker(row, column, getActivePlayer().marker);
+    const moveWasSuccessful = board.placeMarker(
+      row,
+      column,
+      getActivePlayer().marker,
+    );
 
     if (!moveWasSuccessful) {
       console.log("That spot is already taken.");
       return;
     }
-    // This is where the check for a winner, loser, or tie and handle that logic, such as a win message.
+
+    // Check for a winner or tie after a successful move.
     const marker = getActivePlayer().marker;
     const currentBoard = board.getBoard();
 
@@ -121,7 +132,9 @@ function GameController(
       }
 
       if (thisPossibilityMatches) {
+        board.printBoard();
         console.log(`${getActivePlayer().name} wins!`);
+        gameIsOver = true;
         return;
       }
     }
@@ -142,7 +155,9 @@ function GameController(
     }
 
     if (boardIsFull) {
+      board.printBoard();
       console.log("No winning combination. This game is a tie.");
+      gameIsOver = true;
       return;
     }
 
