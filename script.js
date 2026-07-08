@@ -126,6 +126,26 @@ function GameController(
       }
     }
 
+    let boardIsFull = true;
+
+    for (let i = 0; i < currentBoard.length; i++) {
+      for (let j = 0; j < currentBoard[i].length; j++) {
+        if (currentBoard[i][j].getValue() === "") {
+          boardIsFull = false;
+          break;
+        }
+      }
+      
+      if (!boardIsFull) {
+        break;
+      }
+    }
+
+    if (boardIsFull) {
+      console.log("No winning combination. This game is a tie.");
+      return;
+    }
+
     switchPlayerTurn();
     printNewRound();
   };
