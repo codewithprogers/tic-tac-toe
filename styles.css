@@ -24,3 +24,28 @@ header {
 #game-title {
   font-size: clamp(2.5rem, 8vw, 4rem);
 }
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.game-board {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  width: clamp(18rem, 70vw, 31.25rem);
+  aspect-ratio: 1 / 1;
+
+  border-radius: 1.5rem;
+  background-color: rgb(87, 87, 255);
+
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.game-cell {
+  border-radius: 1rem;
+  border: none;
+}
