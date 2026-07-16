@@ -22,12 +22,33 @@ body {
 }
 
 header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.75rem, 4vh, 2rem);
 }
 
 #game-title {
   font-size: clamp(2.5rem, 8vw, 4rem);
   line-height: 0.8;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 4vw, 2rem);
+  
+  font-size: clamp(1rem, 5vw, 2rem);
+  font-weight: bold;
+}
+
+.x-score,
+.turn,
+.o-score {
+  background-color: rgb(87, 87, 255);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 main {
@@ -69,4 +90,5 @@ footer {
 
   font-size: clamp(1rem, 4vw, 2rem);
   font-family: "Roboto", "Arial", sans-serif;
+  font-weight: bold;
 }
