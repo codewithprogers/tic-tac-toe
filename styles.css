@@ -14,6 +14,11 @@ body {
 
 .layout-container {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vh, 5rem);
 }
 
 header {
@@ -22,6 +27,7 @@ header {
 
 #game-title {
   font-size: clamp(2.5rem, 8vw, 4rem);
+  line-height: 0.8;
 }
 
 main {
