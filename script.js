@@ -75,6 +75,8 @@ function GameController(
   };
   const getActivePlayer = () => activePlayer;
 
+  const getBoard = () => board.getBoard();
+
   const printNewRound = () => {
     board.printBoard();
     console.log(`${getActivePlayer().name}'s turn.`);
@@ -170,7 +172,46 @@ function GameController(
   return {
     playRound,
     getActivePlayer,
+    getBoard,
   };
 }
 
-const game = GameController();
+function screenController() {
+  const game = GameController();
+  const playerTurnDiv = document.querySelector(".turn");
+  const cellElements = document.querySelectorAll(".game-cell");
+
+  const updateScreen = () => {
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
+
+    playerTurnDiv.textContent = `${activePlayer.marker}'s Turn`;
+
+    for (let i = 0; i < cellElements.length; i++) {
+      const cell = cellElements[i];
+
+      const row = Number(cell.dataset.row);
+      const column = Number(cell.dataset.column);
+
+      cell.textContent = board[row][column].getValue();
+    }
+  };
+
+  const clickCell = (event) => {
+    const selectedCell = event.target;
+
+    const row = Number(selectedCell.dataset.row);
+    const column = Number(selectedCell.dataset.column);
+    
+    game.playRound(row, column);
+    updateScreen();
+  };
+
+  cellElements.forEach((cell) => {
+    cell.addEventListener("click", clickCell);
+  });
+
+  updateScreen();
+}
+
+screenController();
