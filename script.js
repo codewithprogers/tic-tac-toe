@@ -12,12 +12,12 @@ function Gameboard() {
 
   const getBoard = () => board;
 
-  const placeMarker = (chosenRow, chosenColumn, player) => {
+  const placeMarker = (chosenRow, chosenColumn, marker) => {
     const selectedCell = board[chosenRow][chosenColumn];
 
     if (selectedCell.getValue() !== "") return false;
 
-    selectedCell.addMarker(player);
+    selectedCell.addMarker(marker);
     return true;
   };
 
