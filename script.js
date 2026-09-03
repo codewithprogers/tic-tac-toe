@@ -172,7 +172,7 @@ function GameController(
     return {
       status: "continue",
       activePlayer: getActivePlayer(),
-    }
+    };
   };
 
   printNewRound();
@@ -185,9 +185,10 @@ function GameController(
 }
 
 function screenController() {
-  const game = GameController();
+  let game = GameController();
   const playerTurnDiv = document.querySelector(".turn");
   const cellElements = document.querySelectorAll(".game-cell");
+  const restartButton = document.querySelector(".restart-button");
 
   const updateScreen = (result) => {
     const board = game.getBoard();
@@ -225,9 +226,16 @@ function screenController() {
     updateScreen(result);
   };
 
+  const restartGame = () => {
+    game = GameController();
+    updateScreen();
+  };
+
   cellElements.forEach((cell) => {
     cell.addEventListener("click", clickCell);
   });
+
+  restartButton.addEventListener("click", restartGame);
 
   updateScreen();
 }
