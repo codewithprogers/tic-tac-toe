@@ -85,7 +85,7 @@ function GameController(
   const playRound = (row, column) => {
     if (gameIsOver) {
       console.log("This game has ended.");
-      return;
+      return {status: "over"};
     }
 
     console.log(
@@ -99,7 +99,7 @@ function GameController(
 
     if (!moveWasSuccessful) {
       console.log("That spot is already taken.");
-      return;
+      return {status: "invalid"};
     }
 
     // Check for a winner or tie after a successful move.
@@ -137,7 +137,10 @@ function GameController(
         board.printBoard();
         console.log(`${getActivePlayer().name} wins!`);
         gameIsOver = true;
-        return;
+        return {
+          status: "win",
+          winner: getActivePlayer(),
+        };
       }
     }
 
@@ -160,11 +163,16 @@ function GameController(
       board.printBoard();
       console.log("No winning combination. This game is a tie.");
       gameIsOver = true;
-      return;
+      return {status: "tie"};
     }
 
     switchPlayerTurn();
     printNewRound();
+
+    return {
+      status: "continue",
+      activePlayer: getActivePlayer(),
+    }
   };
 
   printNewRound();
@@ -181,11 +189,9 @@ function screenController() {
   const playerTurnDiv = document.querySelector(".turn");
   const cellElements = document.querySelectorAll(".game-cell");
 
-  const updateScreen = () => {
+  const updateScreen = (result) => {
     const board = game.getBoard();
     const activePlayer = game.getActivePlayer();
-
-    playerTurnDiv.textContent = `${activePlayer.marker}'s Turn`;
 
     for (let i = 0; i < cellElements.length; i++) {
       const cell = cellElements[i];
@@ -195,6 +201,18 @@ function screenController() {
 
       cell.textContent = board[row][column].getValue();
     }
+
+    if (result?.status === "win") {
+      playerTurnDiv.textContent = `${result.winner.name} wins!`;
+    } else if (result?.status === "tie") {
+      playerTurnDiv.textContent = "This game is a tie!";
+    } else if (result?.status === "invalid") {
+      playerTurnDiv.textContent = "That spot is already taken.";
+    } else if (result?.status === "over") {
+      playerTurnDiv.textContent = "This game has ended...";
+    } else {
+      playerTurnDiv.textContent = `${activePlayer.marker}'s Turn`;
+    }
   };
 
   const clickCell = (event) => {
@@ -203,8 +221,8 @@ function screenController() {
     const row = Number(selectedCell.dataset.row);
     const column = Number(selectedCell.dataset.column);
     
-    game.playRound(row, column);
-    updateScreen();
+    const result = game.playRound(row, column);
+    updateScreen(result);
   };
 
   cellElements.forEach((cell) => {
