@@ -190,6 +190,14 @@ function screenController() {
   const cellElements = document.querySelectorAll(".game-cell");
   const restartButton = document.querySelector(".restart-button");
 
+  function showConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+
   const updateScreen = (result) => {
     const board = game.getBoard();
     const activePlayer = game.getActivePlayer();
@@ -205,6 +213,7 @@ function screenController() {
 
     if (result?.status === "win") {
       playerTurnDiv.textContent = `${result.winner.name} wins!`;
+      showConfetti();
     } else if (result?.status === "tie") {
       playerTurnDiv.textContent = "This game is a tie!";
     } else if (result?.status === "invalid") {
