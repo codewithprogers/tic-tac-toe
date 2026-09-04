@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: "Roboto", "Arial", sans-serif;
+  font-family: "Press Start 2P", "Arial", sans-serif;
 }
 
 .layout-container {
@@ -81,7 +81,7 @@ main {
 
   font-size: clamp(3rem, 12vw, 6rem);
   font-weight: bold;
-  font-family: "Roboto", "Arial", sans-serif;
+  font-family: "Press Start 2P", "Arial", sans-serif;
 }
 
 footer {
@@ -97,6 +97,6 @@ footer {
   color: #ffffff;
 
   font-size: clamp(1rem, 4vw, 2rem);
-  font-family: "Roboto", "Arial", sans-serif;
+  font-family: "Press Start 2P", "Arial", sans-serif;
   font-weight: bold;
 }
