@@ -41,9 +41,7 @@ header {
 }
 
 .turn {
-  background-color: rgb(87, 87, 255);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
+  color: rgb(87, 87, 255);
   border-radius: 0.5rem;
 }
 
