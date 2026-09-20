@@ -73,7 +73,7 @@ main {
   border-radius: 1rem;
   border: none;
 
-  font-size: clamp(3rem, 12vw, 6rem);
+  font-size: clamp(2.5rem, 10vw, 4rem);
   font-weight: bold;
   font-family: "Press Start 2P", "Arial", sans-serif;
 }
